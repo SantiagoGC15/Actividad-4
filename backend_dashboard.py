@@ -319,6 +319,7 @@ app.layout = html.Div(
     ],
 )
 
+server = app.server # Necesario para Render
 # SERVIDOR
 if __name__ == '__main__':
     app.run(debug=True)
