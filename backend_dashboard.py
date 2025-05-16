@@ -3,6 +3,7 @@ import plotly.graph_objects as go
 import json
 import dash
 from dash import dcc, html
+from pathlib import Path
 
 colores_paleta = [
     '#113250', '#F7A800', '#002D72', '#FF8200', '#5C068C', '#00B388', 
@@ -17,14 +18,17 @@ colores_paleta = [
 # 1. CARGAR DATA
 #------------------------------------------------------------
 
+BASE_DIR = Path(__file__).resolve().parent      # carpeta donde está backend_dashboard.py
+DATA_DIR = BASE_DIR / "Data"
+
 # Cargar el GeoJSON de Colombia desde el archivo proporcionado
-with open(r'D:\Documentos\Maestria IA\Aplicaciones I\Unidad II\Actividad 4\Data\geojson_colombia.json') as f:
+with open(DATA_DIR / "geojson_colombia.json", encoding="utf-8") as f:
     geojson_data = json.load(f)
 
 # Cargar los datos de muertes y coordenadas
-no_fetal_data = pd.read_excel(r'D:\Documentos\Maestria IA\Aplicaciones I\Unidad II\Actividad 4\Data\Anexo1.NoFetal2019_CE_15-03-23.xlsx')
-divipola_data = pd.read_excel(r'D:\Documentos\Maestria IA\Aplicaciones I\Unidad II\Actividad 4\Data\Anexo3.Divipola_CE_15-03-23.xlsx')
-divipola_departamentos_data = pd.read_excel(r'D:\Documentos\Maestria IA\Aplicaciones I\Unidad II\Actividad 4\Data\DIVIPOLA_Departamentos.xlsx')
+no_fetal_data = pd.read_excel(DATA_DIR / "Anexo1.NoFetal2019_CE_15-03-23.xlsx")
+divipola_data = pd.read_excel(DATA_DIR / "Anexo3.Divipola_CE_15-03-23.xlsx")
+divipola_deptos_data = pd.read_excel(DATA_DIR / "DIVIPOLA_Departamentos.xlsx")
 
 #------------------------------------------------------------
 # 2. FUNCIONES
@@ -320,6 +324,7 @@ app.layout = html.Div(
 )
 
 server = app.server # Necesario para Render
+
 # SERVIDOR
 if __name__ == '__main__':
     app.run(debug=True)
