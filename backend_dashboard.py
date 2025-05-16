@@ -28,7 +28,7 @@ with open(DATA_DIR / "geojson_colombia.json", encoding="utf-8") as f:
 # Cargar los datos de muertes y coordenadas
 no_fetal_data = pd.read_excel(DATA_DIR / "Anexo1.NoFetal2019_CE_15-03-23.xlsx")
 divipola_data = pd.read_excel(DATA_DIR / "Anexo3.Divipola_CE_15-03-23.xlsx")
-divipola_deptos_data = pd.read_excel(DATA_DIR / "DIVIPOLA_Departamentos.xlsx")
+divipola_departamentos_data = pd.read_excel(DATA_DIR / "DIVIPOLA_Departamentos.xlsx")
 
 #------------------------------------------------------------
 # 2. FUNCIONES
