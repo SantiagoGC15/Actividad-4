@@ -236,10 +236,14 @@ Figura 1. Muertes por departamento (fuente: https://analisis-de-mortalidad-en-co
 ## Gráfico de barras apiladas: Las cinco ciudades con mayor mortalidad total
 El análisis de los cinco municipios con más defunciones muestra que Bogotá D. C. (≈ 38.800), Medellín (≈ 19.100), Cali (≈ 18.000), Cúcuta (≈ 5.700) y Pereira (≈ 5.100) concentran una parte sustancial de las muertes registradas en el país. En los cinco casos la causa predominante es la muerte natural, con valores de 35.295 en Bogotá, 17.451 en Medellín, 15.787 en Cali, 5.095 en Cúcuta y 4.609 en Pereira. Las defunciones por causas externas (accidentales, violentas o indeterminadas) constituyen, por tanto, una fracción menor, pero siguen siendo relevantes para las autoridades sanitarias y de seguridad, sobre todo en las tres primeras ciudades donde la densidad poblacional amplifica el impacto absoluto de estos eventos.
 
+![Image](https://github.com/user-attachments/assets/4b3ac99f-eb73-4c8c-9f7d-6d3841fb0a70)
+
 Figura 2. Top 5 de ciudades con mayor mortalidad total (fuente: https://analisis-de-mortalidad-en-colombia-2019.onrender.com).
 
 ## Gráfico de dispersión geográfica: Distribución total de muertes por departamento
 La visualización cartográfica confirma la supremacía de Santafé de Bogotá D. C. (38.760 muertes), Antioquia (34.473) y Valle del Cauca (28.443), cuyos círculos sobresalen en tamaño sobre el mapa. La concentración de fallecimientos en estas tres jurisdicciones coincide con lo observado en la serie temporal (Figura 1) y refleja tanto su peso demográfico como la complejidad de sus entornos urbanos. Las diferencias respecto al resto de departamentos son claras: los círculos de segundo orden, aun siendo significativos por ejemplo, Atlántico o Cundinamarca, se encuentran muy por debajo del nivel de los tres líderes.
+
+![Image](https://github.com/user-attachments/assets/406969e4-8404-45d6-8cda-0a100726c097)
 
 Figura 3. Distribución total de muertes por departamento (fuente: https://analisis-de-mortalidad-en-colombia-2019.onrender.com).
 
@@ -253,6 +257,15 @@ Figura 4. Municipios con menor índice de mortalidad (fuente: https://analisis-d
 
 <a name="7"></a>
 # Conclusiones 
+1. La mayor carga de defunciones en 2019 se concentró en tres territorios Santafé de Bogotá D. C., Antioquia y Valle del Cauca que, en conjunto, representaron más de una cuarta parte de las muertes del país. Esta concentración refleja tanto su peso demográfico como la complejidad de sus ambientes urbanos y subraya la necesidad de políticas sanitarias diferenciadas que contemplen la magnitud y especificidad de estos entornos metropolitanos.
+
+2. La caída simultánea de los fallecimientos en febrero, seguida de un aumento sostenido hasta septiembre, indica la existencia de factores estacionales o coyunturales de alcance nacional que afectan de forma homogénea a los principales departamentos. Identificar estos factores permitiría programar intervenciones preventivas en los periodos de mayor riesgo y optimizar la distribución temporal de recursos.
+
+3. En las ciudades con mayor mortalidad, las muertes naturales superan ampliamente a las violentas o accidentales, aunque estas últimas siguen siendo significativas en términos absolutos. Esto sugiere que las estrategias de salud pública deben priorizar la prevención y el manejo de enfermedades crónicas sin descuidar las políticas de seguridad y reducción de riesgos externos.
+
+4. La coexistencia de municipios que registran una sola muerte al año con capitales que superan las 30.000 revela una disparidad sanitaria y demográfica marcada. Mientras que los centros urbanos requieren estrategias de gran escala y alta complejidad, los municipios de baja mortalidad podrían beneficiarse más de acciones focalizadas y programas de vigilancia epidemiológica simplificados.
+
+5. La evidencia sugiere que la asignación de recursos debe considerar tanto la magnitud absoluta de la mortalidad como sus causas principales y su distribución temporal. En los departamentos líderes, se recomienda reforzar la capacidad hospitalaria y los programas de enfermedades crónicas; en los municipios de baja incidencia, garantizar la accesibilidad a servicios básicos y el fortalecimiento de la notificación de eventos de salud.
 
 <a name="8"></a>
 # Referencias
