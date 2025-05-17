@@ -18,7 +18,7 @@ colores_paleta = [
 # 1. CARGAR DATA
 #------------------------------------------------------------
 
-BASE_DIR = Path(__file__).resolve().parent      # carpeta donde está backend_dashboard.py
+BASE_DIR = Path(__file__).resolve().parent.parent      # carpeta donde está backend_dashboard.py
 DATA_DIR = BASE_DIR / "Data"
 
 # Cargar el GeoJSON de Colombia desde el archivo proporcionado
