@@ -227,6 +227,26 @@ Finalmente, Render es una plataforma en la nube orientada a facilitar el paso de
 
 <a name="6"></a>
 # Análisis de mortalidad en Colombia 2019
+## Gráfico de líneas: Total de muertes por mes
+La serie temporal mensual revela que los departamentos con mayor carga de mortalidad en 2019 son Santafé de Bogotá, D. C., Antioquia y Valle del Cauca. El comportamiento de las tres curvas es muy similar: tras iniciar el año con valores elevados, se aprecia una caída conjunta en febrero —el punto más bajo del periodo— y, posteriormente, una tendencia ascendente hasta alcanzar el máximo en septiembre. Esta sincronía sugiere que factores estacionales o eventos de alcance nacional influyeron de forma homogénea sobre los tres territorios. En el caso de Santafé de Bogotá, febrero registró 2 850 fallecimientos, mientras que septiembre alcanzó 3 386, lo que representa un incremento cercano al 19 % entre ambos meses.
+
+Figura 1. Muertes por departamento (fuente: https://analisis-de-mortalidad-en-colombia-2019.onrender.com).
+
+## Gráfico de barras apiladas: Las cinco ciudades con mayor mortalidad total
+El análisis de los cinco municipios con más defunciones muestra que Bogotá D. C. (≈ 38 800), Medellín (≈ 19 100), Cali (≈ 18 000), Cúcuta (≈ 5 700) y Pereira (≈ 5 100) concentran una parte sustancial de las muertes registradas en el país. En los cinco casos la causa predominante es la muerte natural, con valores de 35 295 en Bogotá, 17 451 en Medellín, 15 787 en Cali, 5 095 en Cúcuta y 4 609 en Pereira. Las defunciones por causas externas (accidentales, violentas o indeterminadas) constituyen, por tanto, una fracción menor, pero siguen siendo relevantes para las autoridades sanitarias y de seguridad, sobre todo en las tres primeras ciudades donde la densidad poblacional amplifica el impacto absoluto de estos eventos.
+
+Figura 2. Top 5 de ciudades con mayor mortalidad total (fuente: https://analisis-de-mortalidad-en-colombia-2019.onrender.com).
+
+## Gráfico de dispersión geográfica: Distribución total de muertes por departamento
+La visualización cartográfica confirma la supremacía de Santafé de Bogotá D. C. (38 760 muertes), Antioquia (34 473) y Valle del Cauca (28 443), cuyos círculos sobresalen en tamaño sobre el mapa. La concentración de fallecimientos en estas tres jurisdicciones coincide con lo observado en la serie temporal (Figura 1) y refleja tanto su peso demográfico como la complejidad de sus entornos urbanos. Las diferencias respecto al resto de departamentos son claras: los círculos de segundo orden, aun siendo significativos —por ejemplo, Atlántico o Cundinamarca—, se encuentran muy por debajo del nivel de los tres líderes.
+
+Figura 3. Distribución total de muertes por departamento (fuente: https://analisis-de-mortalidad-en-colombia-2019.onrender.com).
+
+## Gráfico de torta: Diez municipios con menor mortalidad
+El diagrama circular ilustra que los diez municipios con el índice de mortalidad más bajo —Hato, Alto Baudó, Restrepo, Mapiripana, Albán, Margarita, San Fernando, La Tola, Bituima y Jericó— registraron una sola muerte cada uno durante 2019. Debido a la igualdad absoluta en el número de casos, cada sector representa exactamente el 10 % del total del gráfico. Este hallazgo pone de relieve la marcada disparidad territorial: mientras que en las grandes capitales se registran decenas de miles de defunciones, en ciertos municipios rurales o de baja densidad poblacional la mortalidad puede reducirse a un solo evento anual, lo que plantea desafíos distintos para la planificación sanitaria y la asignación de recursos.
+
+Figura 4. Municipios con menor índice de mortalidad (fuente: https://analisis-de-mortalidad-en-colombia-2019.onrender.com).
+
 
 <a name="7"></a>
 # Conclusiones 
