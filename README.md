@@ -47,7 +47,7 @@ El objetivo de este proyecto es desarrollar una aplicación web interactiva de a
 # Estructura del proyecto
 ```bash
 project-root/
-├── Data/                       # Carpqueta que contiene los datos a analizar
+├── Data/                       # Carpeta que contiene los datos a analizar
 ├── src/                        # Carpeta que contiene el código fuente
     └── app.py                  # Código principal de la aplicación Dash
         └── server = app.server # Exposición del servidor Flask utilizado por Dash
