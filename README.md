@@ -265,12 +265,26 @@ Figura 5. Municipios con menor índice de mortalidad (fuente: https://analisis-d
 ## 5. Tabla: Listado de las 10 principales causas de muerte en Colombia
 El analisis de El análisis de mortalidad en Colombia en 2019 revela que las principales causas de fallecimiento incluyen enfermedades cardiovasculares como infarto agudo del miocardio y hipertensión esencial, enfermedades respiratorias como la EPOC y neumonía, así como varios tipos de cáncer, destacándose los malignos del estómago, pulmón, mama y próstata. Además, las lesiones por violencia, especialmente por arma de fuego, representan una causa significativa de mortalidad en el país.
 
-Puntos clave
-	• Las enfermedades cardiovasculares, particularmente el infarto agudo del miocardio, son una de las principales causas de muerte en Colombia en 2019.
-	• La hipertensión esencial (primaria) también contribuye significativamente a la mortalidad, indicando una alta prevalencia de riesgos cardiovasculares.
-	• Las enfermedades respiratorias, como la EPOC y neumonía, representan una carga importante en las muertes del año.
-	• Los cánceres, específicamente de estómago, pulmón, mama y próstata, lideran las causas oncológicas de mortalidad.
-Las lesiones por agresión con armas de fuego son una causa relevante de mortalidad, relacionadas con la violencia en el país.![image](https://github.com/user-attachments/assets/cba9e457-ba7c-4735-8304-c26c321f15b7)
+![image](https://github.com/user-attachments/assets/172ca450-99af-4a1e-97ae-5f81027bb1ba)
+
+## Puntos clave
+• Las enfermedades cardiovasculares, particularmente el infarto agudo del miocardio, son una de las principales causas de muerte en Colombia en 2019.
+• La hipertensión esencial (primaria) también contribuye significativamente a la mortalidad, indicando una alta prevalencia de riesgos cardiovasculares.
+• Las enfermedades respiratorias, como la EPOC y neumonía, representan una carga importante en las muertes del año.
+• Los cánceres, específicamente de estómago, pulmón, mama y próstata, lideran las causas oncológicas de mortalidad.
+• Lesiones por agresión con armas de fuego son una causa relevante de mortalidad, relacionadas con la violencia en el país.
+
+
+## 6. Histograma: Distribución de muertes por rango de edad
+Se presenta la distribución de muertes agrupadas por rangos de edad de cinco años, desde 0-4 años hasta 85 años o más. Los datos indican cuántas personas fallecieron en cada grupo de edad, con una escala que va desde 0 hasta 120,000 muertes. La tabla muestra cómo varía la cantidad de muertes según la edad, lo que ayuda a entender cuáles grupos etarios tienen mayor mortalidad.
+
+
+
+
+## 7. Gráfico de barras apiladas: Comparación de muertes por sexo y departamento
+Se presenta la distribución de muertes en diferentes departamentos del país, diferenciadas por sexo (hombres y mujeres). Los datos muestran cuántas personas fallecieron por sexo en cada departamento, con un rango que llega hasta 40,000 muertes. Esto permite entender en qué regiones y segmentos de sexo se concentran más las muertes, ayudando a identificar posibles desigualdades o áreas de mayor impacto.
+
+
 
 
 <a name="7"></a>
