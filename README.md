@@ -268,24 +268,25 @@ El analisis de El análisis de mortalidad en Colombia en 2019 revela que las pri
 ![image](https://github.com/user-attachments/assets/172ca450-99af-4a1e-97ae-5f81027bb1ba)
 
 ## Puntos clave
-• Las enfermedades cardiovasculares, particularmente el infarto agudo del miocardio, son una de las principales causas de muerte en Colombia en 2019.
-• La hipertensión esencial (primaria) también contribuye significativamente a la mortalidad, indicando una alta prevalencia de riesgos cardiovasculares.
-• Las enfermedades respiratorias, como la EPOC y neumonía, representan una carga importante en las muertes del año.
-• Los cánceres, específicamente de estómago, pulmón, mama y próstata, lideran las causas oncológicas de mortalidad.
-• Lesiones por agresión con armas de fuego son una causa relevante de mortalidad, relacionadas con la violencia en el país.
+* Las enfermedades cardiovasculares, particularmente el infarto agudo del miocardio, son una de las principales causas de muerte en Colombia en 2019.
+* La hipertensión esencial (primaria) también contribuye significativamente a la mortalidad, indicando una alta prevalencia de riesgos cardiovasculares.
+* Las enfermedades respiratorias, como la EPOC y neumonía, representan una carga importante en las muertes del año.
+* Los cánceres, específicamente de estómago, pulmón, mama y próstata, lideran las causas oncológicas de mortalidad.
+* Lesiones por agresión con armas de fuego son una causa relevante de mortalidad, relacionadas con la violencia en el país.
 
 
 ## 6. Histograma: Distribución de muertes por rango de edad
 Se presenta la distribución de muertes agrupadas por rangos de edad de cinco años, desde 0-4 años hasta 85 años o más. Los datos indican cuántas personas fallecieron en cada grupo de edad, con una escala que va desde 0 hasta 120,000 muertes. La tabla muestra cómo varía la cantidad de muertes según la edad, lo que ayuda a entender cuáles grupos etarios tienen mayor mortalidad.
 
-
+![image](https://github.com/user-attachments/assets/e5c43385-4185-475a-b09b-af9771b879ee)
 
 
 ## 7. Gráfico de barras apiladas: Comparación de muertes por sexo y departamento
 Se presenta la distribución de muertes en diferentes departamentos del país, diferenciadas por sexo (hombres y mujeres). Los datos muestran cuántas personas fallecieron por sexo en cada departamento, con un rango que llega hasta 40,000 muertes. Esto permite entender en qué regiones y segmentos de sexo se concentran más las muertes, ayudando a identificar posibles desigualdades o áreas de mayor impacto.
 
+![image](https://github.com/user-attachments/assets/17211d07-ed48-48e8-83f5-59f2aec07a06)
 
-
+![image](https://github.com/user-attachments/assets/352f8e64-22fc-4100-b6b1-9727bc9fc602)
 
 <a name="7"></a>
 # Conclusiones 
