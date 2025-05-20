@@ -1,8 +1,9 @@
 import pandas as pd
 import plotly.graph_objects as go
+import plotly.express as px 
 import json
 import dash
-from dash import dcc, html
+from dash import dcc, html, dash_table 
 from pathlib import Path
 
 colores_paleta = [
@@ -289,6 +290,80 @@ fig_map_colombia.update_layout(
 )
 
 #------------------------------------------------------------
+# 3.4 Tabla: Listado de las 10 principales causas de muerte
+#------------------------------------------------------------
+
+# Cargar los archivos
+df_muertes = pd.read_excel(DATA_DIR / "Anexo1.NoFetal2019_CE_15-03-23.xlsx")
+df_codigos = pd.read_excel(DATA_DIR / "Anexo2.CodigosDeMuerte_CE_15-03-23.xlsx", skiprows=8)
+df_divipola = pd.read_excel(DATA_DIR / "Anexo3.Divipola_CE_15-03-23.xlsx")
+
+# Filtrar las muertes por COD_MUERTE
+df_muertes = df_muertes[df_muertes["COD_MUERTE"].notnull()]
+df_muertes = df_muertes[df_muertes["COD_MUERTE"].astype(str).str.match(r'^[A-Z0-9]+X?$')]  # Permitir un sufijo opcional "X"
+df_muertes = df_muertes[df_muertes["COD_MUERTE"].str.len() <= 7]
+
+# Agregar el sufijo 'X' solo a los valores 'C61' e 'I10' en la columna COD_MUERTE
+df_muertes["COD_MUERTE"] = df_muertes["COD_MUERTE"].apply(
+    lambda x: f"{x}X" if x in ["C61", "I10"] else x
+)
+
+# Convertir COD_MUERTE a string
+df_muertes["COD_MUERTE"] = df_muertes["COD_MUERTE"].astype(str)
+
+# Agrupar por COD_MUERTE para obtener el total de muertes
+df_top = df_muertes.groupby("COD_MUERTE").size().reset_index(name="TOTAL")
+
+# Asegurarse de que df_codigos tiene las columnas necesarias
+if "Código de la CIE-10 cuatro caracteres" in df_codigos.columns and "Descripcion  de códigos mortalidad a cuatro caracteres" in df_codigos.columns:
+    # Realizar el merge para agregar la descripción
+    df_top = df_top.merge(df_codigos, left_on="COD_MUERTE", right_on="Código de la CIE-10 cuatro caracteres", how="left")
+else:
+    raise ValueError("El archivo de códigos no contiene las columnas 'Código de la CIE-10 cuatro caracteres' y 'Descripcion  de códigos mortalidad a cuatro caracteres'.")
+
+# Seleccionar las 10 principales causas de muerte
+df_top10 = df_top.sort_values("TOTAL", ascending=False).head(10)[["COD_MUERTE", "Descripcion  de códigos mortalidad a cuatro caracteres", "TOTAL"]]
+
+#------------------------------------------------------------
+# 3.5 Histograma: Distribución por grupo de edad
+#------------------------------------------------------------
+
+# Histograma por rango quinquenal
+df_muertes = df_muertes[df_muertes["GRUPO_EDAD1"] >= 0]
+bins = list(range(0, 90, 5)) + [150]
+labels = [f"{i}-{i+4}" for i in range(0, 85, 5)] + ["85+"]
+df_muertes["RANGO_EDAD"] = pd.cut(df_muertes["GRUPO_EDAD1"], bins=bins, labels=labels, right=False)
+df_histograma = df_muertes["RANGO_EDAD"].value_counts().sort_index().reset_index()
+df_histograma.columns = ["RANGO_EDAD", "TOTAL"]
+
+#------------------------------------------------------------
+# 3.6 Barras apiladas: Muertes por sexo y departamento
+#------------------------------------------------------------
+
+# Crear df_sexo_dpto agrupando las muertes por departamento y sexo
+df_muertes["SEXO"] = df_muertes["SEXO"].map({1: "Hombre", 2: "Mujer"})
+df_muertes["COD_DEPARTAMENTO"] = df_muertes["COD_DEPARTAMENTO"].astype(str).str[:2]
+
+# Agrupar por departamento y sexo para obtener el total de muertes
+df_sexo_dpto = df_muertes.groupby(["COD_DEPARTAMENTO", "SEXO"]).size().reset_index(name="TOTAL")
+
+# Definir df_departamentos a partir de divipola_departamentos_data
+df_departamentos = divipola_departamentos_data
+
+# Asegurarse de que 'COD_DEPARTAMENTO' sea de tipo string en ambos DataFrames
+df_sexo_dpto["COD_DEPARTAMENTO"] = df_sexo_dpto["COD_DEPARTAMENTO"].astype(str)
+df_departamentos["COD_DEPARTAMENTO"] = df_departamentos["COD_DEPARTAMENTO"].astype(str)
+
+# Realizar el merge para agregar los nombres de los departamentos
+df_sexo_dpto = df_sexo_dpto.merge(df_departamentos, on="COD_DEPARTAMENTO", how="left")
+
+# Agrupar nuevamente para asegurarse de que no haya duplicados
+df_sexo_dpto = df_sexo_dpto.groupby(["DEPARTAMENTO", "SEXO"], as_index=False)["TOTAL"].sum()
+
+# Crear el DataFrame para las barras apiladas
+df_barras_apiladas = df_sexo_dpto.pivot(index="DEPARTAMENTO", columns="SEXO", values="TOTAL").fillna(0).reset_index()
+
+#------------------------------------------------------------
 # 4. DASH
 #------------------------------------------------------------
 
@@ -298,32 +373,195 @@ app.title = 'Análisis de mortalidad en Colombia para el año 2019'
 
 # Definir Layout
 app.layout = html.Div(
-    style={'padding': '20px'},
+    style={'padding': '20px', 'fontFamily': 'Arial, sans-serif', 'backgroundColor': '#f9f9f9'},
     children=[
         # Título principal
-        html.H1(TITLE, style={'textAlign': 'center', 'marginBottom': '25px'}),
+        html.H1(
+            TITLE,
+            style={
+                'textAlign': 'center',
+                'marginBottom': '25px',
+                'color': '#113250',
+                'fontSize': '32px',
+                'fontWeight': 'bold',
+            },
+        ),
 
-        # 4.1 Primera fila ‑ Gráfico de líneas
-        html.Div(
-            style={'marginTop': '20px'},
+        # Pestañas para organizar los gráficos y la tabla
+        dcc.Tabs(
+            id='tabs',
             children=[
-                dcc.Graph(id='line_chart', figure=fig_line),
+                # Pestaña 1: Gráfico de líneas
+                dcc.Tab(
+                    label='Gráfico de Líneas',
+                    style={'backgroundColor': '#e6e6e6', 'border': '1px solid #ccc'},
+                    selected_style={'backgroundColor': '#ffffff', 'border': '1px solid #113250', 'fontWeight': 'bold'},
+                    children=[
+                        html.Div(
+                            style={'marginTop': '20px', 'padding': '10px'},
+                            children=[
+                                html.H3(
+                                    "Tendencia de muertes por mes",
+                                    style={'textAlign': 'center', 'color': '#113250'},
+                                ),
+                                dcc.Graph(id='line_chart', figure=fig_line),
+                            ],
+                        ),
+                    ],
+                ),
+                # Pestaña 2: Gráfico de barras apiladas (Top 5)
+                dcc.Tab(
+                    label='Top 5 Ciudades Más Violentas',
+                    style={'backgroundColor': '#e6e6e6', 'border': '1px solid #ccc'},
+                    selected_style={'backgroundColor': '#ffffff', 'border': '1px solid #113250', 'fontWeight': 'bold'},
+                    children=[
+                        html.Div(
+                            style={'marginTop': '20px', 'padding': '10px'},
+                            children=[
+                                html.H3(
+                                    "Ciudades con mayor índice de violencia",
+                                    style={'textAlign': 'center', 'color': '#113250'},
+                                ),
+                                dcc.Graph(id='top5_bar', figure=fig_top5),
+                            ],
+                        ),
+                    ],
+                ),
+                # Pestaña 3: Gráfico de torta
+                dcc.Tab(
+                    label='Top 10 Ciudades con Menor Mortalidad',
+                    style={'backgroundColor': '#e6e6e6', 'border': '1px solid #ccc'},
+                    selected_style={'backgroundColor': '#ffffff', 'border': '1px solid #113250', 'fontWeight': 'bold'},
+                    children=[
+                        html.Div(
+                            style={'marginTop': '20px', 'padding': '10px'},
+                            children=[
+                                html.H3(
+                                    "Ciudades con menor índice de mortalidad",
+                                    style={'textAlign': 'center', 'color': '#113250'},
+                                ),
+                                dcc.Graph(id='pie_chart', figure=fig_pie),
+                            ],
+                        ),
+                    ],
+                ),
+                # Pestaña 4: Gráfico de mapa
+                dcc.Tab(
+                    label='Mapa de Mortalidad por Departamento',
+                    style={'backgroundColor': '#e6e6e6', 'border': '1px solid #ccc'},
+                    selected_style={'backgroundColor': '#ffffff', 'border': '1px solid #113250', 'fontWeight': 'bold'},
+                    children=[
+                        html.Div(
+                            style={'marginTop': '20px', 'padding': '10px'},
+                            children=[
+                                html.H3(
+                                    "Distribución geográfica de muertes",
+                                    style={'textAlign': 'center', 'color': '#113250'},
+                                ),
+                                dcc.Graph(id='mapa_colombia', figure=fig_map_colombia),
+                            ],
+                        ),
+                    ],
+                ),
+                # Pestaña 5: Tabla de causas de muerte
+                dcc.Tab(
+                    label='Top 10 Causas de Muerte',
+                    style={'backgroundColor': '#e6e6e6', 'border': '1px solid #ccc'},
+                    selected_style={'backgroundColor': '#ffffff', 'border': '1px solid #113250', 'fontWeight': 'bold'},
+                    children=[
+                        html.Div(
+                            style={'marginTop': '20px', 'padding': '10px'},
+                            children=[
+                                html.H3(
+                                    "Principales causas de muerte en Colombia",
+                                    style={'textAlign': 'center', 'color': '#113250'},
+                                ),
+                                dash_table.DataTable(
+                                    columns=[{"name": i, "id": i} for i in df_top10.columns],
+                                    data=df_top10.to_dict("records"),
+                                    style_table={'overflowX': 'auto'},
+                                    style_cell={
+                                        'textAlign': 'left',
+                                        'padding': '10px',
+                                        'fontFamily': 'Arial, sans-serif',
+                                    },
+                                    style_header={
+                                        'backgroundColor': '#113250',
+                                        'color': 'white',
+                                        'fontWeight': 'bold',
+                                    },
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
+                # Pestaña 6: Histograma de distribución por rangos de edad
+                dcc.Tab(
+                    label='Histograma por Edad',
+                    style={'backgroundColor': '#e6e6e6', 'border': '1px solid #ccc'},
+                    selected_style={'backgroundColor': '#ffffff', 'border': '1px solid #113250', 'fontWeight': 'bold'},
+                    children=[
+                        html.Div(
+                            style={'marginTop': '20px', 'padding': '10px'},
+                            children=[
+                                html.H3(
+                                    "Distribución de muertes por rangos de edad",
+                                    style={'textAlign': 'center', 'color': '#113250'},
+                                ),
+                                dcc.Graph(
+                                    figure=px.bar(
+                                        df_histograma,
+                                        x="RANGO_EDAD",
+                                        y="TOTAL",
+                                        title="Muertes por grupo quinquenal de edad",
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
+                # Pestaña 7: Muertes por sexo y departamento
+                dcc.Tab(
+                    label='Muertes por Sexo y Departamento',
+                    style={'backgroundColor': '#e6e6e6', 'border': '1px solid #ccc'},
+                    selected_style={'backgroundColor': '#ffffff', 'border': '1px solid #113250', 'fontWeight': 'bold'},
+                    children=[
+                        html.Div(
+                            style={'marginTop': '20px', 'padding': '10px'},
+                            children=[
+                                html.H3(
+                                    "Distribución de muertes por sexo y departamento",
+                                    style={'textAlign': 'center', 'color': '#113250'},
+                                ),
+                                dcc.Graph(
+                                    figure=px.bar(
+                                        df_barras_apiladas,
+                                        x="DEPARTAMENTO",
+                                        y=["Hombre", "Mujer"],
+                                        title="Total de muertes por sexo en cada departamento",
+                                        labels={"value": "Muertes", "variable": "Sexo"},
+                                        barmode="stack",
+                                    ),
+                                ),
+                            ],
+                        ),
+                    ],
+                ),
             ],
         ),
 
-        # 4.Segunda fila ‑ Top5 + Mapa + Torta
-        html.Div(
-            style={'display': 'flex', 'gap': '10px'},
+        # Pie de página
+        html.Footer(
+            style={'textAlign': 'center', 'marginTop': '50px', 'color': '#717C7D', 'fontSize': '14px'},
             children=[
-                dcc.Graph(id='top5_bar',       figure=fig_top5,         style={'flex': '3'}),
-                dcc.Graph(id='mapa_colombia', figure=fig_map_colombia, style={'flex': '2'}),
-                dcc.Graph(id='pie_chart', figure=fig_pie, style={'flex': '2'}),
+                html.P("Análisis de Mortalidad en Colombia - 2019"),
+                html.P("Fuente: Datos oficiales del gobierno de Colombia"),
             ],
         ),
     ],
 )
 
-server = app.server # Necesario para Render
+server = app.server  # Necesario para Render
 
 # SERVIDOR
 if __name__ == '__main__':
